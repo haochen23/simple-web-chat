@@ -28,6 +28,14 @@ app.get("/messages", (req, res) => {
   });
 });
 
+app.get("/messages/:user", (req, res) => {
+  let user = req.params.user;
+  //read all messages from mongo db
+  Message.find({ name: user }, (err, messages) => {
+    res.send(messages);
+  });
+});
+
 app.post("/messages", async (req, res) => {
   try {
     var message = new Message(req.body);

@@ -22,3 +22,21 @@ describe("get messages", () => {
     });
   });
 });
+
+describe("get messages from user", () => {
+  it("should return 200 OK", (done) => {
+    request.get("http://localhost:3000/messages/eric", (err, res) => {
+      expect(res.statusCode).toEqual(200);
+      done();
+    });
+  });
+
+  it("name should be eric", () => {
+    request.get("http://localhost:3000/messages/eric", (err, res) => {
+      if (JSON.parse(res.body).length == 0)
+        expect(JSON.parse(res.body)[0].name).toBe(undefined);
+      else expect(JSON.parse(res.body)[0].name).toEqual("eric");
+      done();
+    });
+  });
+});
